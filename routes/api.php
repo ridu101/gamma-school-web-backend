@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\ResultController;
+use App\Http\Controllers\Api\RoutineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
 Route::get('/results/options', [ResultController::class, 'options']);
 Route::get('/results/search', [ResultController::class, 'search']);
 
+// Public Routine Routes
+Route::get('/routines/options', [RoutineController::class, 'options']);
+Route::get('/routines/search', [RoutineController::class, 'search']);
+Route::get('/routines', [RoutineController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +35,6 @@ Route::get('/results/search', [ResultController::class, 'search']);
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-
 /*
 |--------------------------------------------------------------------------
 | Protected Admin Routes
@@ -39,80 +43,29 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Auth
-    |--------------------------------------------------------------------------
-    */
-
+    // Auth
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Teacher Management
-    |--------------------------------------------------------------------------
-    */
-
+    // Teacher Management
     Route::post('/teachers', [TeacherController::class, 'store']);
+    Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
+    Route::patch('/teachers/{teacher}', [TeacherController::class, 'update']);
+    Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy']);
 
-    Route::put(
-        '/teachers/{teacher}',
-        [TeacherController::class, 'update']
-    );
+    // Student Management
+    Route::apiResource('students', StudentController::class);
 
-    Route::patch(
-        '/teachers/{teacher}',
-        [TeacherController::class, 'update']
-    );
+    // Result Management
+    Route::get('/results', [ResultController::class, 'index']);
+    Route::post('/results', [ResultController::class, 'store']);
+    Route::put('/results/{result}', [ResultController::class, 'update']);
+    Route::patch('/results/{result}', [ResultController::class, 'update']);
+    Route::delete('/results/{result}', [ResultController::class, 'destroy']);
 
-    Route::delete(
-        '/teachers/{teacher}',
-        [TeacherController::class, 'destroy']
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Student Management
-    |--------------------------------------------------------------------------
-    */
-
-    Route::apiResource(
-        'students',
-        StudentController::class
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Result Management
-    |--------------------------------------------------------------------------
-    */
-
-    Route::get(
-        '/results',
-        [ResultController::class, 'index']
-    );
-
-    Route::post(
-        '/results',
-        [ResultController::class, 'store']
-    );
-
-    Route::put(
-        '/results/{result}',
-        [ResultController::class, 'update']
-    );
-
-    Route::patch(
-        '/results/{result}',
-        [ResultController::class, 'update']
-    );
-
-    Route::delete(
-        '/results/{result}',
-        [ResultController::class, 'destroy']
-    );
+    // Routine Management
+    Route::post('/routines', [RoutineController::class, 'store']);
+    Route::put('/routines/{routine}', [RoutineController::class, 'update']);
+    Route::patch('/routines/{routine}', [RoutineController::class, 'update']);
+    Route::delete('/routines/{routine}', [RoutineController::class, 'destroy']);
 });
