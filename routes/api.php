@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\ResultController;
 use App\Http\Controllers\Api\RoutineController;
+use App\Http\Controllers\Api\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
+    // Dashboard Stats
+    Route::get('/dashboard/stats', [DashboardController::class, 'stats']);
+
     // Teacher Management
     Route::post('/teachers', [TeacherController::class, 'store']);
     Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
@@ -68,4 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/routines/{routine}', [RoutineController::class, 'update']);
     Route::patch('/routines/{routine}', [RoutineController::class, 'update']);
     Route::delete('/routines/{routine}', [RoutineController::class, 'destroy']);
+
+    
 });
