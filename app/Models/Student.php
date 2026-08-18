@@ -26,4 +26,9 @@ class Student extends Model
         'date_of_birth' => 'date',
         'status' => 'boolean',
     ];
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }
