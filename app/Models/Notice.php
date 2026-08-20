@@ -12,6 +12,8 @@ class Notice extends Model
     protected $fillable = [
         'title',
         'description',
+        'category',
+        'file',
         'publish_date',
         'is_active',
     ];
