@@ -31,6 +31,7 @@ Route::get('/routines', [RoutineController::class, 'index']);
 
 // Public Notice Routes
 Route::get('/notices', [NoticeController::class, 'index']);
+Route::get('/notices/{id}/download', [NoticeController::class, 'download']);
 Route::get('/notices/{id}', [NoticeController::class, 'show']);
 
 /*
@@ -79,8 +80,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/routines/{routine}', [RoutineController::class, 'destroy']);
 
     // Notice Management
-   // Public Notice Routes
-Route::get('/notices', [NoticeController::class, 'index']);
-Route::get('/notices/{id}/download', [NoticeController::class, 'download']);
-Route::get('/notices/{id}', [NoticeController::class, 'show']);
+    Route::post('/notices', [NoticeController::class, 'store']);
+    Route::put('/notices/{id}', [NoticeController::class, 'update']);
+    Route::patch('/notices/{id}', [NoticeController::class, 'update']);
+    Route::delete('/notices/{id}', [NoticeController::class, 'destroy']);
 });
