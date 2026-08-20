@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\TeacherController;
 use App\Http\Controllers\Api\ResultController;
 use App\Http\Controllers\Api\RoutineController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\NoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::get('/results/search', [ResultController::class, 'search']);
 Route::get('/routines/options', [RoutineController::class, 'options']);
 Route::get('/routines/search', [RoutineController::class, 'search']);
 Route::get('/routines', [RoutineController::class, 'index']);
+
+// Public Notice Routes
+Route::get('/notices', [NoticeController::class, 'index']);
+Route::get('/notices/{id}', [NoticeController::class, 'show']);
 
 /*
 |--------------------------------------------------------------------------
@@ -73,5 +78,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/routines/{routine}', [RoutineController::class, 'update']);
     Route::delete('/routines/{routine}', [RoutineController::class, 'destroy']);
 
-    
+    // Notice Management
+    Route::post('/notices', [NoticeController::class, 'store']);
+    Route::put('/notices/{id}', [NoticeController::class, 'update']);
+    Route::patch('/notices/{id}', [NoticeController::class, 'update']);
+    Route::delete('/notices/{id}', [NoticeController::class, 'destroy']);
 });
